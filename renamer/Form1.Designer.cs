@@ -202,6 +202,7 @@
             // 
             // newFilenameText
             // 
+            newFilenameText.BackColor = SystemColors.Window;
             newFilenameText.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point);
             newFilenameText.Location = new Point(552, 214);
             newFilenameText.Name = "newFilenameText";
@@ -244,12 +245,13 @@
             // 
             // applyButton
             // 
+            applyButton.BackColor = Color.FromArgb(192, 255, 255);
             applyButton.Location = new Point(6, 19);
             applyButton.Name = "applyButton";
             applyButton.Size = new Size(76, 21);
             applyButton.TabIndex = 0;
             applyButton.Text = "적용하기";
-            applyButton.UseVisualStyleBackColor = true;
+            applyButton.UseVisualStyleBackColor = false;
             applyButton.Click += applyButton_Click;
             // 
             // Renamer

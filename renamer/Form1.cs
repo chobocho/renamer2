@@ -1,4 +1,5 @@
 using System.Text;
+using System.Windows.Forms.VisualStyles;
 
 namespace renamer
 {
@@ -10,6 +11,11 @@ namespace renamer
         {
             _fileNames = new List<FileName>();
             InitializeComponent();
+            filenameText.Text = " [도움말]\n" +
+                                " Ctrl+F: 찾을 문자\n" +
+                                " Ctrl+H: 바꿀 문자\n" +
+                                " Alt+C: 모두 지우기\n" +
+                                " Ctrl+G: 파일 이름 바꾸기 실행\n";
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -52,7 +58,6 @@ namespace renamer
             _fileNames.Sort((x, y) => String.Compare(x.name(), y.name()));
             updateOriginalFileList();
             UpdateNewFilenameList();
-
             MessageBox.Show($"Success!", "ReNamer");
         }
 
@@ -136,6 +141,20 @@ namespace renamer
             newFilenameText.Text = sb.ToString();
         }
 
+        private void updateNewFileTextBG()
+        {
+            var isUpdate = false;
+            foreach (var fileName in _fileNames)
+            {
+                if (fileName.IsColorUpdate())
+                {
+                    isUpdate = true;
+                    break;
+                }
+            }
+            newFilenameText.BackColor = isUpdate ? Color.Cornsilk : Color.White;
+        }
+        
         private void revertButton_Click(object sender, EventArgs e)
         {
 
@@ -152,6 +171,9 @@ namespace renamer
             filenameText.Clear();
             folderName.Clear();
             newFilenameText.Clear();
+            newFilenameText.BackColor = Color.White;
+            searchText.Clear();
+            replaceText.Clear();
         }
 
         private void searchText_TextChanged(object sender, EventArgs e)
@@ -163,6 +185,7 @@ namespace renamer
                 fileName.GetExpect(searchText.Text, replaceText.Text);
             }
             UpdateNewFilenameListWithTempName();
+            updateNewFileTextBG();
         }
 
         private void replaceText_TextChanged(object sender, EventArgs e)
@@ -174,6 +197,7 @@ namespace renamer
                 fileName.GetExpect(searchText.Text, replaceText.Text);
             }
             UpdateNewFilenameListWithTempName();
+            updateNewFileTextBG();
         }
 
         private void replaceText_KeyDown(object sender, KeyEventArgs e)
@@ -198,7 +222,7 @@ namespace renamer
                 case (Keys.Control | Keys.G):
                     applyChange();
                     break;
-                case (Keys.Control | Keys.C):
+                case (Keys.Alt | Keys.C):
                     clearAll();
                     break;
                 default:

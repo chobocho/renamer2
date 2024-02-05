@@ -60,6 +60,11 @@ class FileName
     {
         return _name != _NewName;
     }
+    
+    public bool IsColorUpdate()
+    {
+        return (_name != _NewName) || (_NewName != _tempName);
+    }
 
     public void ApplyTempName()
     {
