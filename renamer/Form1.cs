@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms.VisualStyles;
 
 namespace renamer
@@ -6,16 +7,16 @@ namespace renamer
     public partial class Renamer : Form
     {
         private List<FileName> _fileNames;
-
+        const string _helpText = " [도움말]\n" +
+                        " Ctrl+F: 찾을 문자\n" +
+                        " Ctrl+H: 바꿀 문자\n" +
+                        " Alt+C: 모두 지우기\n" +
+                        " Ctrl+G: 파일 이름 바꾸기 실행\n";
         public Renamer()
         {
             _fileNames = new List<FileName>();
             InitializeComponent();
-            filenameText.Text = " [도움말]\n" +
-                                " Ctrl+F: 찾을 문자\n" +
-                                " Ctrl+H: 바꿀 문자\n" +
-                                " Alt+C: 모두 지우기\n" +
-                                " Ctrl+G: 파일 이름 바꾸기 실행\n";
+            filenameText.Text = _helpText;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -23,6 +24,17 @@ namespace renamer
 
         }
 
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            foreach (var file in _fileNames)
+            {
+                file.Revert();
+            }
+            UpdateNewFilenameList();
+            newFilenameText.BackColor = SystemColors.Window;
+        }
+
+        
         private void applyButton_Click(object sender, EventArgs e)
         {
             applyChange();
@@ -88,14 +100,15 @@ namespace renamer
 
         void filenameText_DragDrop(object sender, DragEventArgs e)
         {
+            _fileNames.Clear();
+            
             var files = e.Data.GetData(DataFormats.FileDrop) as string[];
             if (files == null || !File.Exists(files[0]))
             {
-                filenameText.Text = $"{files[0]} not Exist!";
+                filenameText.Text = $"{files[0]} 은 존재 하지 않는 파일이거나 폴더 입니다!";
                 return;
             }
-
-            _fileNames.Clear();
+            
             foreach (var file in files)
             {
                 _fileNames.Add(new FileName(file));
@@ -126,7 +139,6 @@ namespace renamer
             {
                 sb.AppendLine(fileName.newName());
             }
-
             newFilenameText.Text = sb.ToString();
         }
 
@@ -152,7 +164,7 @@ namespace renamer
                     break;
                 }
             }
-            newFilenameText.BackColor = isUpdate ? Color.Cornsilk : Color.White;
+            newFilenameText.BackColor = isUpdate ? Color.Cornsilk : SystemColors.Window;
         }
         
         private void revertButton_Click(object sender, EventArgs e)
@@ -168,10 +180,10 @@ namespace renamer
         private void clearAll()
         {
             _fileNames.Clear();
-            filenameText.Clear();
+            filenameText.Text = _helpText;
             folderName.Clear();
             newFilenameText.Clear();
-            newFilenameText.BackColor = Color.White;
+            newFilenameText.BackColor = SystemColors.Window;
             searchText.Clear();
             replaceText.Clear();
         }
@@ -190,6 +202,8 @@ namespace renamer
 
         private void replaceText_TextChanged(object sender, EventArgs e)
         {
+            replaceText.Text = Regex.Replace(replaceText.Text, "[*:/\"<>|]", "");
+            replaceText.SelectionStart = replaceText.Text.Length;
             if (searchText.Text.Length == 0) return;
             if (replaceText.Text.Length == 0) return;
             foreach (var fileName in _fileNames)

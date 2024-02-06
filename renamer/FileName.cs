@@ -76,4 +76,10 @@ class FileName
         _name = _NewName;
         _tempName = _NewName;
     }
+
+    public void Revert()
+    {
+        _NewName = _name;
+        _tempName = _NewName;
+    }
 }

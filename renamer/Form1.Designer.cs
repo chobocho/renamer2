@@ -36,9 +36,6 @@
             searchText = new TextBox();
             toLabel = new Label();
             fromLabel = new Label();
-            groupBox2 = new GroupBox();
-            groupBox3 = new GroupBox();
-            groupBox4 = new GroupBox();
             groupBox5 = new GroupBox();
             folderName = new TextBox();
             label1 = new Label();
@@ -52,6 +49,7 @@
             ReplaceGroup.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
+            resetButton = new Button();
             SuspendLayout();
             // 
             // ReplaceGroup
@@ -64,7 +62,7 @@
             ReplaceGroup.Controls.Add(fromLabel);
             ReplaceGroup.Location = new Point(10, 10);
             ReplaceGroup.Name = "ReplaceGroup";
-            ReplaceGroup.Size = new Size(406, 110);
+            ReplaceGroup.Size = new Size(400, 110);
             ReplaceGroup.TabIndex = 0;
             ReplaceGroup.TabStop = false;
             ReplaceGroup.Text = "바꾸기";
@@ -72,9 +70,9 @@
             // 
             // clearButton
             // 
-            clearButton.Location = new Point(152, 83);
+            clearButton.Location = new Point(220, 80);
             clearButton.Name = "clearButton";
-            clearButton.Size = new Size(66, 21);
+            clearButton.Size = new Size(60, 23);
             clearButton.TabIndex = 5;
             clearButton.Text = "지우기";
             clearButton.UseVisualStyleBackColor = true;
@@ -82,11 +80,11 @@
             // 
             // replaceButton
             // 
-            replaceButton.Location = new Point(70, 81);
+            replaceButton.Location = new Point(70, 80);
             replaceButton.Name = "replaceButton";
-            replaceButton.Size = new Size(76, 23);
+            replaceButton.Size = new Size(140, 23);
             replaceButton.TabIndex = 4;
-            replaceButton.Text = "바꾸기";
+            replaceButton.Text = "미리보기에 적용하기";
             replaceButton.UseVisualStyleBackColor = true;
             replaceButton.Click += replaceButton_Click;
             // 
@@ -125,39 +123,12 @@
             fromLabel.TabIndex = 0;
             fromLabel.Text = "찾을 문자";
             // 
-            // groupBox2
-            // 
-            groupBox2.Location = new Point(422, 10);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(300, 110);
-            groupBox2.TabIndex = 1;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "groupBox2";
-            // 
-            // groupBox3
-            // 
-            groupBox3.Location = new Point(728, 10);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(129, 110);
-            groupBox3.TabIndex = 2;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "groupBox3";
-            // 
-            // groupBox4
-            // 
-            groupBox4.Location = new Point(863, 10);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(119, 110);
-            groupBox4.TabIndex = 3;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "groupBox4";
-            // 
             // groupBox5
             // 
             groupBox5.Controls.Add(folderName);
-            groupBox5.Location = new Point(11, 126);
+            groupBox5.Location = new Point(5, 126);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(1127, 47);
+            groupBox5.Size = new Size(1105, 47);
             groupBox5.TabIndex = 4;
             groupBox5.TabStop = false;
             groupBox5.Text = "폴더 경로";
@@ -165,15 +136,15 @@
             // folderName
             // 
             folderName.Enabled = false;
-            folderName.Location = new Point(15, 19);
+            folderName.Location = new Point(10, 19);
             folderName.Name = "folderName";
-            folderName.Size = new Size(1106, 23);
+            folderName.Size = new Size(1090, 23);
             folderName.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 190);
+            label1.Location = new Point(5, 190);
             label1.Name = "label1";
             label1.Size = new Size(59, 15);
             label1.TabIndex = 5;
@@ -182,7 +153,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(552, 190);
+            label2.Location = new Point(560, 190);
             label2.Name = "label2";
             label2.Size = new Size(59, 15);
             label2.TabIndex = 5;
@@ -192,9 +163,9 @@
             // 
             filenameText.AllowDrop = true;
             filenameText.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            filenameText.Location = new Point(15, 214);
+            filenameText.Location = new Point(5, 214);
             filenameText.Name = "filenameText";
-            filenameText.Size = new Size(531, 344);
+            filenameText.Size = new Size(555, 345);
             filenameText.TabIndex = 6;
             filenameText.Text = "";
             filenameText.DragDrop += filenameText_DragDrop;
@@ -204,9 +175,9 @@
             // 
             newFilenameText.BackColor = SystemColors.Window;
             newFilenameText.Font = new Font("맑은 고딕", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            newFilenameText.Location = new Point(552, 214);
+            newFilenameText.Location = new Point(560, 214);
             newFilenameText.Name = "newFilenameText";
-            newFilenameText.Size = new Size(585, 344);
+            newFilenameText.Size = new Size(555, 345);
             newFilenameText.TabIndex = 7;
             newFilenameText.Text = "";
             // 
@@ -215,27 +186,27 @@
             groupBox6.Controls.Add(AllClear);
             groupBox6.Controls.Add(revertButton);
             groupBox6.Controls.Add(applyButton);
-            groupBox6.Location = new Point(1047, 10);
+            groupBox6.Location = new Point(420, 10);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(91, 110);
+            groupBox6.Size = new Size(120, 110);
             groupBox6.TabIndex = 8;
             groupBox6.TabStop = false;
             groupBox6.Text = "실행하기";
             // 
             // AllClear
             // 
-            AllClear.Location = new Point(6, 75);
+            AllClear.Location = new Point(6, 78);
             AllClear.Name = "AllClear";
-            AllClear.Size = new Size(74, 24);
+            AllClear.Size = new Size(100, 23);
             AllClear.TabIndex = 2;
-            AllClear.Text = "지우기";
+            AllClear.Text = "모두 지우기";
             AllClear.UseVisualStyleBackColor = true;
             AllClear.Click += AllClear_Click;
             // 
             // revertButton
             // 
             revertButton.Enabled = false;
-            revertButton.Location = new Point(6, 46);
+            revertButton.Location = new Point(6, 50);
             revertButton.Name = "revertButton";
             revertButton.Size = new Size(77, 23);
             revertButton.TabIndex = 1;
@@ -246,22 +217,33 @@
             // applyButton
             // 
             applyButton.BackColor = Color.FromArgb(192, 255, 255);
-            applyButton.Location = new Point(6, 19);
+            applyButton.Location = new Point(6, 22);
             applyButton.Name = "applyButton";
-            applyButton.Size = new Size(76, 21);
+            applyButton.Size = new Size(76, 23);
             applyButton.TabIndex = 0;
             applyButton.Text = "적용하기";
             applyButton.UseVisualStyleBackColor = false;
             applyButton.Click += applyButton_Click;
             // 
+            // replaceButton
+            // 
+            resetButton.Location = new Point(1036, 190);
+            resetButton.Name = "replaceButton";
+            resetButton.Size = new Size(76, 23);
+            resetButton.TabIndex = 10;
+            resetButton.Text = "초기화";
+            resetButton.UseVisualStyleBackColor = true;
+            resetButton.Click += resetButton_Click;
+            // 
             // Renamer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1150, 569);
+            ClientSize = new Size(1115, 560);
             Controls.Add(groupBox6);
             Controls.Add(newFilenameText);
             Controls.Add(filenameText);
+            Controls.Add(resetButton);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(groupBox5);
@@ -271,7 +253,7 @@
             Controls.Add(ReplaceGroup);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Renamer";
-            Text = "Renamer";
+            Text = "Renamer V0.1";
             ReplaceGroup.ResumeLayout(false);
             ReplaceGroup.PerformLayout();
             groupBox5.ResumeLayout(false);
@@ -303,5 +285,6 @@
         private Button AllClear;
         private Button revertButton;
         private Button applyButton;
+        private Button resetButton;
     }
 }
