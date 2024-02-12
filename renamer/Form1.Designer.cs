@@ -46,10 +46,10 @@
             AllClear = new Button();
             revertButton = new Button();
             applyButton = new Button();
+            resetButton = new Button();
             ReplaceGroup.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
-            resetButton = new Button();
             SuspendLayout();
             // 
             // ReplaceGroup
@@ -92,7 +92,7 @@
             // 
             replaceText.Location = new Point(70, 52);
             replaceText.Name = "replaceText";
-            replaceText.Size = new Size(329, 23);
+            replaceText.Size = new Size(325, 23);
             replaceText.TabIndex = 3;
             replaceText.TextChanged += replaceText_TextChanged;
             replaceText.KeyDown += replaceText_KeyDown;
@@ -101,7 +101,7 @@
             // 
             searchText.Location = new Point(70, 22);
             searchText.Name = "searchText";
-            searchText.Size = new Size(330, 23);
+            searchText.Size = new Size(325, 23);
             searchText.TabIndex = 2;
             searchText.TextChanged += searchText_TextChanged;
             // 
@@ -197,7 +197,7 @@
             // 
             AllClear.Location = new Point(6, 78);
             AllClear.Name = "AllClear";
-            AllClear.Size = new Size(100, 23);
+            AllClear.Size = new Size(80, 23);
             AllClear.TabIndex = 2;
             AllClear.Text = "모두 지우기";
             AllClear.UseVisualStyleBackColor = true;
@@ -208,7 +208,7 @@
             revertButton.Enabled = false;
             revertButton.Location = new Point(6, 50);
             revertButton.Name = "revertButton";
-            revertButton.Size = new Size(77, 23);
+            revertButton.Size = new Size(80, 23);
             revertButton.TabIndex = 1;
             revertButton.Text = "되돌리기";
             revertButton.UseVisualStyleBackColor = true;
@@ -219,16 +219,16 @@
             applyButton.BackColor = Color.FromArgb(192, 255, 255);
             applyButton.Location = new Point(6, 22);
             applyButton.Name = "applyButton";
-            applyButton.Size = new Size(76, 23);
+            applyButton.Size = new Size(80, 23);
             applyButton.TabIndex = 0;
             applyButton.Text = "적용하기";
             applyButton.UseVisualStyleBackColor = false;
             applyButton.Click += applyButton_Click;
             // 
-            // replaceButton
+            // resetButton
             // 
             resetButton.Location = new Point(1036, 190);
-            resetButton.Name = "replaceButton";
+            resetButton.Name = "resetButton";
             resetButton.Size = new Size(76, 23);
             resetButton.TabIndex = 10;
             resetButton.Text = "초기화";
@@ -247,9 +247,6 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(groupBox5);
-            Controls.Add(groupBox4);
-            Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
             Controls.Add(ReplaceGroup);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Renamer";
@@ -266,9 +263,6 @@
         #endregion
 
         private GroupBox ReplaceGroup;
-        private GroupBox groupBox2;
-        private GroupBox groupBox3;
-        private GroupBox groupBox4;
         private GroupBox groupBox5;
         private TextBox folderName;
         private Label label1;

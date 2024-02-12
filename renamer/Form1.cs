@@ -63,7 +63,7 @@ namespace renamer
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show($"Fail to change {file.name()} to {file.newName()}", "Error!");
+                    MessageBox.Show($"Fail to change {file.name()} to {file.newName()}\n{exception}", "Error!");
                 }
             }
 
@@ -95,6 +95,7 @@ namespace renamer
 
         void filenameText_DragEnter(object sender, DragEventArgs e)
         {
+            if (e == null || e.Data == null) return;
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
 
@@ -102,8 +103,19 @@ namespace renamer
         {
             _fileNames.Clear();
             
+            if(e == null || e.Data == null) return;
+
+
             var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-            if (files == null || !File.Exists(files[0]))
+
+            if (files == null || files[0] == null)
+            {
+                filenameText.Text = $"파일/폴더 정보를 가져오는데 실패 했습니다!";
+                return;
+            }
+
+
+            if (!File.Exists(files[0]))
             {
                 filenameText.Text = $"{files[0]} 은 존재 하지 않는 파일이거나 폴더 입니다!";
                 return;
